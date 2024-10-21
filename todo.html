@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .todo {
+            width: 30%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 2px 2px 14px 3px;
+            border-radius: 5px;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            margin: 15px 0;
+            padding: 10px;
+        }
+
+        button {
+            width: 35%;
+            margin: 0 auto;
+            padding: 6px;
+            background-color: black;
+            color: white;
+            border: navajowhite;
+            border-radius: 5px;
+        }
+
+        .task-item {
+            list-style: none;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .task-button {
+            width: 25%;
+            margin-left: 10px;
+        }
+
+        /* Specific button colors */
+        .complete-btn {
+            background-color: green;
+        }
+
+        .completed-task {
+            text-decoration: line-through;
+            color: green;
+        }
+
+        .delete-btn {
+            background-color: red;
+        }
+
+        .error-msg {
+            color: red;
+        }
+
+        .valDiv {
+            display: flex;
+            flex-direction: column;
+            width: 35%;
+            margin: 25px auto;
+            text-align: right;
+        }
+       
+
+
+        /* div#values {
+  
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    margin: 25px auto;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 1px 2px 12px 2px;
+    background-color: #669ea0;
+    border-radius: 5px;
+} */
+    </style>
+</head>
+
+<body>
+    <div class="todo">
+        <h2>TO-DO LIST</h2>
+        <div class="box">
+            <input type="text" id="additems" placeholder="add new task">
+            <button id="addtask">Add Task</button>
+            <input type="text" id="search" placeholder="search task">
+            <button id="pending-task">Show Pending Task</button>
+        </div>
+    </div>
+    <div id="values"></div>
+
+    <script>
+        let addtask = document.getElementById("addtask").addEventListener('click', () => {
+            let addingitems = document.getElementById("additems").value;
+            let valuesDiv = document.getElementById("values");
+            if (addingitems) {
+                let li = document.createElement("li");
+                li.textContent = addingitems;
+                li.classList.add("task-item")
+
+                valuesDiv.classList.add("valDiv");
+
+                let completeBtn = document.createElement("button");
+                completeBtn.textContent = 'complete';
+                completeBtn.classList.add("task-button", "complete-btn")
+                completeBtn.addEventListener('click', () => {
+                    li.classList.add("completed-task");
+                });
+
+                let deletBtn = document.createElement("button");
+                deletBtn.textContent = 'delete';
+                deletBtn.classList.add("task-button", "delete-btn")
+                deletBtn.addEventListener('click', () => {
+                    li.remove();
+                });
+
+                li.appendChild(completeBtn);
+                li.appendChild(deletBtn);
+
+                valuesDiv.appendChild(li)
+                document.getElementById("additems").value = "";
+
+            } else {
+                let errormsg = document.createElement("p");
+                errormsg.textContent = "please add some values";
+                errormsg.classList.add("error-msg");
+
+                valuesDiv.appendChild(errormsg);
+
+
+                setTimeout(() => {
+                    errormsg.remove();
+                }, 3000);
+            }
+        });
+
+
+        document.getElementById("search").addEventListener('input', function () {
+
+            let searchValue = this.value.toLowerCase();
+            let tasks = document.querySelectorAll("#values li");
+
+            tasks.forEach(function (task) {
+                let tasktext = task.textContent.toLowerCase();
+                if (tasktext.includes(searchValue)) {
+                    task.style.display = "block";
+                }else{
+                    task.style.display = "none";
+                }
+            });
+
+        });
+            
+  
+
+
+    </script>
+</body>
+
+</html>

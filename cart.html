@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .cart-box {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+
+        .cart {
+            width: 225px;
+            box-shadow: 2px 1px 8px 2px;
+            padding: 5px 13px;
+            border-radius: 5px;
+            border: navajowhite;
+            margin: 15px 10px;
+            cursor: pointer;
+        }
+
+        .img img {
+            max-width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 20px;
+            width: 95%;
+            gap: 40px;
+        }
+
+        h2 {
+            font-family: sans-serif;
+            font-size: 20px;
+            margin: 8px 0;
+            color: #456d8f;
+        }
+
+        p {
+            font-family: sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            background-color: black;
+            padding: 2px 6px;
+        }
+
+        div#cart:hover {
+            background-color: rgba(0, 0, 0, 0.245);
+        }
+
+        .list {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 0 0px;
+            margin: 10px 0;
+            background-color: darkcyan;
+            color: white;
+        }
+
+        .greenBtn {
+            padding: 6px 20px;
+            margin: 0 10px;
+            border: navajowhite;
+            border-radius: 4px;
+            background-color: green;
+            color: white;
+            height: 30px;
+        }
+
+        .redBtn {
+            padding: 6px 20px;
+            margin: 0 10px;
+            border: navajowhite;
+            border-radius: 4px;
+            background-color: red;
+            color: white;
+            height: 30px;
+        }
+
+        .smallimgg {
+            width: 200px;
+            height: 70px;
+            object-fit: cover;
+        }
+
+        .addMsg {
+            text-align: center;
+            background-color: white;
+        }
+
+        .DltMsg {
+            text-align: center;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="cart-box" id="cart-box">
+            <div class="cart">
+                <div class="img">
+                    <img src="./assets/girl-in-farm.jpg" alt="">
+                </div>
+                <div class="cart-content">
+                    <h2>Web Design For Beginers</h2>
+                    <p>Maria A. Perna</p>
+                    <p>$200</p>
+                </div>
+            </div>
+            <div class="cart">
+                <div class="img">
+                    <img src="./assets/model-image-overlay.avif" alt="">
+                </div>
+                <div class="cart-content">
+                    <h2>Web Design For Beginers</h2>
+                    <p>Maria A. Perna</p>
+                    <p>$200</p>
+                </div>
+            </div>
+            <div class="cart">
+                <div class="img">
+                    <img src="./assets/woman-with-paper-bags-taking-selfie.jpg" alt="">
+                </div>
+                <div class="cart-content">
+                    <h2>Web Design For Beginers</h2>
+                    <p>Maria A. Perna</p>
+                    <p>$200</p>
+                </div>
+            </div>
+            <div class="cart">
+                <div class="img">
+                    <img src="./assets/women.jpg" alt="">
+                </div>
+                <div class="cart-content">
+                    <h2>Web Design For Beginers</h2>
+                    <p>Maria A. Perna</p>
+                    <p>$200</p>
+                </div>
+            </div>
+        </div>
+        <div class="addtocart">
+            <ul class="cart-list"></ul>
+        </div>
+    </div>
+    <script>
+        let carts = document.querySelectorAll(".cart");
+        let addtocart = document.querySelector(".addtocart");
+        let cart_list = document.querySelector(".cart-list");
+
+        carts.forEach(cart => {
+            cart.addEventListener('click', function () {
+
+                let imgSrc = this.querySelector('img').src;
+                let tittle = this.querySelector('h2').textContent;
+                let price = this.querySelector('p:last-child').textContent;
+
+                let smallimg = document.createElement("img");
+                smallimg.src = imgSrc;
+                smallimg.classList.add("smallimgg")
+
+                let itemdetails = document.createElement("span");
+                itemdetails.textContent = `${tittle}-${price}`;
+
+                let addbtn = document.createElement("button");
+                addbtn.textContent = "Add";
+                addbtn.classList.add("greenBtn");
+
+                let dltbtn = document.createElement("button");
+                dltbtn.textContent = "Remove";
+                dltbtn.classList.add("redBtn");
+
+                let li = document.createElement("li");
+                li.appendChild(smallimg);
+                li.appendChild(itemdetails);
+                li.appendChild(addbtn);
+                li.appendChild(dltbtn);
+                li.classList.add("list")
+
+                cart_list.appendChild(li);
+
+                addbtn.addEventListener('click', function () {
+                    let add_msg = document.createElement("p");
+                    add_msg.textContent = `Added ${tittle} To Your Cart Succesfully! `;
+                    add_msg.style.color = "green"
+                    document.querySelector(".addtocart").appendChild(add_msg);
+                    add_msg.classList.add("addMsg")
+
+                })
+
+                dltbtn.addEventListener('click', function () {
+                    addtocart.remove();
+                })
+
+            })
+        });
+
+
+    </script>
+</body>
+
+</html>
